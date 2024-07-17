@@ -1,0 +1,44 @@
+{
+    "java.project.referencedLibraries": [
+        //đường dẫn đến tệp opencv.jar
+        "lib\\opencv-490.jar",
+        "F:\\Connector\\mysql-connector-j-8.4.0\\mysql-connector-j-8.4.0.jar",
+        "lib\\rekognition-2.20.8.jar",
+        "lib\\auth-2.17.89.jar",
+        "lib\\deeplearning4j-core-1.0.0-M2.1.jar",
+        "lib\\nd4j-native-platform-1.0.0-M2.1.jar",
+        "C:\\Users\\ACER NITRO 5\\Downloads\\deeplearning4j-core-1.0.0-M1.1.jar"
+
+    ],
+    "java.debug.settings": {
+        "vmArgs": [
+            //đường dẫn môi trường của opencv
+            "-Djava.library.path=/C:/Users/ACER NITRO 5/Downloads/Opencv/opencv/build/java/x64/"
+        ]
+    },
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "face_detection_db",
+            "database": "face_detection_db",
+            "username": "root",
+            "password": "admin"
+        }
+    ],
+    "java.project.sourcePaths": [
+        "Test/src",
+        "Server/src",
+        "Client2/src",
+        "Client/src",
+        "ServerTest/src"
+    ]
+      
+    
+}
