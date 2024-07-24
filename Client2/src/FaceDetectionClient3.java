@@ -69,6 +69,7 @@ public class FaceDetectionClient3 {
         stopButton.setBackground(new Color(255, 102, 102));
         webcamButton.setBackground(new Color(0, 153, 255));
         fileButton.setBackground(new Color(150, 123, 255));
+        exitButton.setBackground(new Color(255,255,0));
         buttonPanel.add(stopButton);
         buttonPanel.add(webcamButton);
         buttonPanel.add(fileButton);
