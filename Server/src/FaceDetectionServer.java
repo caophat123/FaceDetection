@@ -196,20 +196,6 @@ public class FaceDetectionServer {
             }
         }
 
-        private BufferedImage matToBufferedImage(Mat mat) {
-            int type = BufferedImage.TYPE_BYTE_GRAY; // Đặt kiểu hình ảnh mặc định là xám
-            if (mat.channels() > 1) {
-                type = BufferedImage.TYPE_3BYTE_BGR; // Nếu hình ảnh có nhiều kênh, đặt kiểu là BGR
-            }
-            int bufferSize = mat.channels() * mat.cols() * mat.rows(); // Tính toán kích thước bộ đệm
-            byte[] buffer = new byte[bufferSize]; // Tạo mảng byte để lưu trữ dữ liệu hình ảnh
-            mat.get(0, 0, buffer); // Sao chép dữ liệu hình ảnh vào mảng byte
-            BufferedImage image = new BufferedImage(mat.cols(), mat.rows(), type); // Tạo đối tượng BufferedImage
-            final byte[] targetPixels = ((DataBufferByte) image.getRaster().getDataBuffer()).getData(); // Lấy dữ liệu đệm từ BufferedImage
-            System.arraycopy(buffer, 0, targetPixels, 0, buffer.length); // Sao chép dữ liệu từ mảng byte vào dữ liệu đệm
-            return image; // Trả về đối tượng BufferedImage
-        }
-
         // Phương thức đặt thông báo lên trên cùng, đè lên tất cả các layer khác
         private static void showMessage(Component parent, String message, String title, int informationMessage) {
             JDialog dialog = new JOptionPane(message, JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION).createDialog(parent, title); // Tạo hộp thoại thông báo
