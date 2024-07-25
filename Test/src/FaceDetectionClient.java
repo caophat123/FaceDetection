@@ -144,42 +144,42 @@ public class FaceDetectionClient {
     }
 
     private static BufferedImage makeCircular(BufferedImage image) {
-        int diameter = Math.min(image.getWidth(), image.getHeight()); 
-        BufferedImage mask = new BufferedImage(diameter, diameter, BufferedImage.TYPE_INT_ARGB); 
+        int diameter = Math.min(image.getWidth(), image.getHeight()); // Lấy đường kính của hình tròn
+        BufferedImage mask = new BufferedImage(diameter, diameter, BufferedImage.TYPE_INT_ARGB); // Tạo ảnh bộ nhớ đệm cho mặt nạ
 
-        Graphics2D g2 = mask.createGraphics(); 
-        applyQualityRenderingHints(g2); 
-        g2.fill(new Ellipse2D.Double(0, 0, diameter, diameter)); 
-        g2.dispose(); 
+        Graphics2D g2 = mask.createGraphics(); // Tạo đối tượng Graphics2D để vẽ
+        applyQualityRenderingHints(g2); // Áp dụng các gợi ý kết xuất chất lượng
+        g2.fill(new Ellipse2D.Double(0, 0, diameter, diameter)); // Vẽ hình ellipse
+        g2.dispose(); // Giải phóng đối tượng Graphics2D
 
-        BufferedImage circular = new BufferedImage(diameter, diameter, BufferedImage.TYPE_INT_ARGB); 
-        g2 = circular.createGraphics(); 
-        applyQualityRenderingHints(g2); 
-        g2.setClip(new Ellipse2D.Double(0, 0, diameter, diameter)); 
-        g2.drawImage(image, 0, 0, diameter, diameter, null); 
-        g2.dispose(); 
+        BufferedImage circular = new BufferedImage(diameter, diameter, BufferedImage.TYPE_INT_ARGB); // Tạo ảnh bộ nhớ đệm cho hình tròn
+        g2 = circular.createGraphics(); // Tạo đối tượng Graphics2D để vẽ
+        applyQualityRenderingHints(g2); // Áp dụng các gợi ý kết xuất chất lượng
+        g2.setClip(new Ellipse2D.Double(0, 0, diameter, diameter)); // Đặt clip cho hình ellipse
+        g2.drawImage(image, 0, 0, diameter, diameter, null); // Vẽ hình ảnh
+        g2.dispose(); // Giải phóng đối tượng Graphics2D
 
-        return circular; 
+        return circular; // Trả về hình ảnh dạng tròn
     }
 
     private static void applyQualityRenderingHints(Graphics2D g2) {
-        g2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); 
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); 
-        g2.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY); 
-        g2.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE); 
-        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR); 
-        g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY); 
-        g2.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE); 
+        g2.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY); // Áp dụng gợi ý kết xuất chất lượng alpha
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); // Áp dụng gợi ý kết xuất khử răng cưa
+        g2.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY); // Áp dụng gợi ý kết xuất chất lượng màu
+        g2.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE); // Áp dụng gợi ý kết xuất dither
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR); // Áp dụng gợi ý kết xuất nội suy bilinear
+        g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY); // Áp dụng gợi ý kết xuất chất lượng
+        g2.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE); // Áp dụng gợi ý kết xuất kiểm soát nét vẽ
     }
 
     private static void runFaceDetection(int option, String filePath, JLabel imageLabel) throws IOException {
         try (Socket socket = new Socket("localhost", 12345); 
-             PrintWriter out = new PrintWriter(socket.getOutputStream(), true); 
-             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) { 
+             PrintWriter out = new PrintWriter(socket.getOutputStream(), true); // Tạo đối tượng PrintWriter để ghi dữ liệu ra socket
+             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) { // Tạo đối tượng BufferedReader để đọc dữ liệu từ socket
 
             String name = JOptionPane.showInputDialog("Enter your name:"); 
             out.println(name); 
-            out.println(option); 
+            out.println(option); // Gửi tùy chọn (1: Webcam, 2: File) tới server
 
             if (option == 2 && filePath != null) {
                 out.println(filePath); 
@@ -198,9 +198,9 @@ public class FaceDetectionClient {
                         Imgproc.putText(matImage, name, new Point(rect.x, rect.y - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.8, new Scalar(0, 255, 0), 2); 
                     }
 
-                    BufferedImage processedImage = matToBufferedImage(matImage); 
+                    BufferedImage processedImage = matToBufferedImage(matImage); // Chuyển đổi đối tượng Mat thành BufferedImage
 
-                    BufferedImage finalImage = resizeImage(processedImage, 500, 600); 
+                    BufferedImage finalImage = resizeImage(processedImage, 500, 600); // Thay đổi kích thước hình ảnh cuối cùng
 
                     imageLabel.setIcon(new ImageIcon(finalImage)); 
                 }
@@ -219,14 +219,14 @@ public class FaceDetectionClient {
                 CascadeClassifier faceDetector = new CascadeClassifier(CASCADE_PATH); 
                 Mat frame = new Mat(); 
 
-                timer = new Timer(30, new ActionListener() { 
+                timer = new Timer(30, new ActionListener() { // Tạo timer để đọc khung hình từ webcam mỗi 30ms
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        if (capture.read(frame)) { 
-                            Mat grayFrame = new Mat(); 
-                            Imgproc.cvtColor(frame, grayFrame, Imgproc.COLOR_BGR2GRAY); 
-                            MatOfRect faceDetections = new MatOfRect(); 
-                            faceDetector.detectMultiScale(grayFrame, faceDetections); 
+                        if (capture.read(frame)) { // Đọc khung hình từ webcam
+                            Mat grayFrame = new Mat(); // Tạo đối tượng Mat để lưu trữ khung hình xám
+                            Imgproc.cvtColor(frame, grayFrame, Imgproc.COLOR_BGR2GRAY); // Chuyển đổi khung hình thành màu xám
+                            MatOfRect faceDetections = new MatOfRect(); // Tạo đối tượng MatOfRect để lưu trữ các khuôn mặt phát hiện được
+                            faceDetector.detectMultiScale(grayFrame, faceDetections); // Phát hiện khuôn mặt trên khung hình xám
                             if (faceDetections.toArray().length > 0) {
                                 for (Rect rect : faceDetections.toArray()) { 
                                     Imgproc.rectangle(frame, rect.tl(), rect.br(), new Scalar(0, 255, 0), 3); 
@@ -264,16 +264,16 @@ public class FaceDetectionClient {
     }
 
     private static Mat bufferedImageToMat(BufferedImage bi) {
-        Mat mat = new Mat(bi.getHeight(), bi.getWidth(), CvType.CV_8UC3); 
-        byte[] data = ((DataBufferByte) bi.getRaster().getDataBuffer()).getData(); 
-        mat.put(0, 0, data); 
+        Mat mat = new Mat(bi.getHeight(), bi.getWidth(), CvType.CV_8UC3); // Tạo đối tượng Mat với kích thước và kiểu dữ liệu tương ứng với hình ảnh
+        byte[] data = ((DataBufferByte) bi.getRaster().getDataBuffer()).getData(); // Lấy dữ liệu byte của hình ảnh
+        mat.put(0, 0, data); // Đặt dữ liệu byte vào đối tượng Mat
         return mat; 
     }
 
     private static BufferedImage matToBufferedImage(Mat mat) {
-        int type = (mat.channels() > 1) ? BufferedImage.TYPE_3BYTE_BGR : BufferedImage.TYPE_BYTE_GRAY; 
-        BufferedImage image = new BufferedImage(mat.width(), mat.height(), type); 
-        mat.get(0, 0, ((DataBufferByte) image.getRaster().getDataBuffer()).getData()); 
+        int type = (mat.channels() > 1) ? BufferedImage.TYPE_3BYTE_BGR : BufferedImage.TYPE_BYTE_GRAY; // Xác định loại dữ liệu của hình ảnh dựa trên số kênh của Mat
+        BufferedImage image = new BufferedImage(mat.width(), mat.height(), type); // Tạo đối tượng BufferedImage với kích thước và loại dữ liệu tương ứng
+        mat.get(0, 0, ((DataBufferByte) image.getRaster().getDataBuffer()).getData()); // Lấy dữ liệu từ Mat và đặt vào BufferedImage
         return image; 
     }
 }

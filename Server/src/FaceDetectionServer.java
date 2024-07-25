@@ -1,16 +1,13 @@
 import javax.swing.*;
 import java.awt.*; 
-import java.awt.image.BufferedImage; 
 import java.io.*; 
 import java.net.ServerSocket; 
 import java.net.Socket; 
 import java.sql.*; 
-import javax.imageio.ImageIO; 
 import org.opencv.core.*; 
 import org.opencv.core.Point; 
 import org.opencv.imgcodecs.Imgcodecs; 
 import org.opencv.imgproc.Imgproc; 
-import java.awt.image.DataBufferByte; 
 import org.opencv.objdetect.CascadeClassifier; 
 import org.opencv.videoio.VideoCapture; 
 import org.opencv.videoio.Videoio; 
