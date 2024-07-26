@@ -1,5 +1,5 @@
 ALTER TABLE captured_images ADD COLUMN name VARCHAR(255);
-DELETE FROM captured_images WHERE id = 7;
+DELETE FROM captured_images WHERE id = 2;
 drop TABLE captured_images;
 CREATE TABLE captured_images (
     id INT AUTO_INCREMENT PRIMARY KEY,
